@@ -50,6 +50,17 @@ app.post("/login", async (req, res) => {
     res.json({ token, userId: user.rows[0].id });
 });
 
+app.get("/test-db", async (req, res) => {
+    try {
+        const result = await pool.query("SELECT NOW()");
+        res.json({ message: "Database connected!", time: result.rows[0] });
+    } catch (err) {
+        console.error("Database connection error:", err);
+        res.status(500).json({ error: "Failed to connect to database" });
+    }
+});
+
+
 // Start server
 app.listen(5000, () => console.log("Backend running on port 5000"));
 
