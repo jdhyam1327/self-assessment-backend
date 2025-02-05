@@ -25,12 +25,17 @@ app.post("/signup", async (req, res) => {
     const { name, email, password } = req.body;
     const hashedPassword = await bcrypt.hash(password, 10);
     try {
-        await pool.query("INSERT INTO users (name, email, password) VALUES ($1, $2, $3)", [name, email, hashedPassword]);
+        await pool.query(
+            "INSERT INTO users (name, email, password) VALUES ($1, $2, $3)",
+            [name, email, hashedPassword]
+        );
         res.json({ message: "User registered!" });
     } catch (err) {
-        res.status(500).json({ error: "Email already in use" });
+        console.error(err);
+        res.status(500).json({ error: "Signup failed" });
     }
 });
+
 
 // Login Route
 app.post("/login", async (req, res) => {
