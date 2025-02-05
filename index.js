@@ -15,10 +15,10 @@ app.use(cors({
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
-    ssl: { rejectUnauthorized: false }
+    ssl: { require: true }
 });
 
-const SECRET_KEY = "your_secret_key";
+const SECRET_KEY = "3d216879c4c9f20351b8dfedb4fc5cee";
 
 // Signup Route
 app.post("/signup", async (req, res) => {
